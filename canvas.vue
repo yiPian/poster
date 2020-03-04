@@ -123,7 +123,7 @@
              */
             writeCode (base64) {
                 let _ = this
-                let filePath = `${wx.env.USER_DATA_PATH}/wxacode.jpeg`
+                let filePath = `${wx.env.USER_DATA_PATH}/${this.info._id}.jpeg`
                 wx.getFileSystemManager().writeFile({
                     filePath,
                     data: base64,
@@ -338,6 +338,10 @@
                             // 设置绘制完成
                             this.isDrawDone  = true
                             uni.hideLoading()
+                            // 删除写入的数据
+                            wx.getFileSystemManager().unlink({
+                                filePath: this.codePath
+                            })
                         }
                     }, this)
                 }, 300))
